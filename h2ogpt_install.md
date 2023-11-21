@@ -57,6 +57,9 @@
 
 ## Lancement de h2ogpt
 
+### Allouez une ressource de calcul
+    salloc --gres=gpu:1 --mem=256G
+
 ### Vérifiez si Cuda est disponible et visible 
     python
     import torch
@@ -64,10 +67,9 @@
 
 ### Lancer h2ogpt via un job slurm
     spack load cuda@11.8.0%gcc@=11.3.1
-    srun --gres=gpu:1 --mem=256G --reservation=M2CHPS python generate.py --share=False --gradio_offline_level=1 --base_model=TheBloke/Mistral-7B-v0.1-GGUF --score_model=None --prompt_type=human_bot
+    python generate.py --share=False --gradio_offline_level=1 --base_model=TheBloke/Mistral-7B-v0.1-GGUF --score_model=None --prompt_type=human_bot
 
 ### Récupérez le port utilisé par h2ogpt et mettez en place un tunnel ssh (port forwarding) sur votre propre machine pour accéder à l'appli Web h2ogpt
-
     ssh -J votre_nom_user@juliet.mesonet.fr -L port_h20gpt:localhost:port_h2ogpt votre_nom_user@juliet2  -N
 
 ### Accédez à l'interface Web via votre navigateur à l'adresse localhost:port_h2ogpt
